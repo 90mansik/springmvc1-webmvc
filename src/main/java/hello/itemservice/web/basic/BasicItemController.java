@@ -30,16 +30,17 @@ public class BasicItemController {
         model.addAttribute("item", item);
         return "basic/item";
     }
+
     @GetMapping("/add")
-    public String addForm(){
+    public String addForm() {
         return "basic/addForm";
     }
 
     //@PostMapping("/add")
     public String addItemV1(@RequestParam String itemName,
-                       @RequestParam int price,
-                       @RequestParam Integer quantity,
-                       Model model){
+                            @RequestParam int price,
+                            @RequestParam Integer quantity,
+                            Model model) {
 
         Item item = new Item();
         item.setItemName(itemName);
@@ -54,35 +55,42 @@ public class BasicItemController {
     }
 
     //@PostMapping("/add")
-    public String addItemV2(@ModelAttribute("item") Item item){
+    public String addItemV2(@ModelAttribute("item") Item item) {
         itemRepository.save(item);
         return "basic/item";
     }
 
     //@PostMapping("/add")
-    public String addItemV3(@ModelAttribute Item item){
-        itemRepository.save(item);
-        return "basic/item";
-    }
-    @PostMapping("/add")
-    public String addItemV4(Item item){
+    public String addItemV3(@ModelAttribute Item item) {
         itemRepository.save(item);
         return "basic/item";
     }
 
+    //@PostMapping("/add")
+    public String addItemV4(Item item) {
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item) {
+        itemRepository.save(item);
+
+        return "redirect:/basic/items/" + item.getId();
+    }
+
     @GetMapping("/{itemId}/edit")
-    public String editForm(@PathVariable Long itemId, Model model){
+    public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "basic/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute Item item){
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
         return "redirect:/basic/items/{itemId}";
     }
-
 
 
     /**
